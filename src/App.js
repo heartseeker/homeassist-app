@@ -1,25 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { Switch, BrowserRouter as Router, Route } from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import Dashboard from './pages/Dashboard/Dashboard';
+import HomeLoanQualifying from './pages/HomeLoanQualifying/HomeLoanQualifying';
+import PropertySearch from './pages/PropertySearch/PropertySearch';
+import Signin from './pages/Signin/Signin';
+
+const App = () => (
+  <Router>
+    <Switch>
+      <Route path="/users/signin" component={Signin} />
+      <Route path="/dashboard" component={Dashboard} />
+      <Route path="/property-search" component={PropertySearch} />
+      <Route path="/home-loan-qualfying" component={HomeLoanQualifying} />
+    </Switch>
+  </Router>
+);
 
 export default App;
