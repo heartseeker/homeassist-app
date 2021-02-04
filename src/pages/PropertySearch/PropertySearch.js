@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
-const properties = [1, 1, 1, 1, 1, 1, 1, 1, 1];
+const properties = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
 
 const PropertySearch = () => {
   const classes = useStyles();
@@ -23,8 +23,8 @@ const PropertySearch = () => {
     <MainLayout>
       <h1>Property Search</h1>
       <div className={classes.listing}>
-        {properties.map(() => (
-          <ListingItem className={classes.listingItem} />
+        {properties.map((property) => (
+          <ListingItem key={property} className={classes.listingItem} />
         ))}
       </div>
     </MainLayout>

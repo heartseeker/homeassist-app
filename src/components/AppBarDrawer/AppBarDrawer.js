@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import Proptypes from 'prop-types';
 import clsx from 'clsx';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,7 +11,6 @@ import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-// import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -18,11 +18,13 @@ import { Badge, InputAdornment, TextField } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import Avatar from '@material-ui/core/Avatar';
 
+import { bindActionCreators, compose } from 'redux';
+import { connect } from 'react-redux';
+
 import Icon from '@mdi/react';
 import {
   mdiHomeSearch,
   mdiHomeEdit,
-  mdiHomeAnalytics,
   mdiCalendarClock,
   mdiClipboardEdit,
   mdiFileDocumentMultiple,
@@ -32,6 +34,8 @@ import {
   mdiMagnify,
   mdiLogout,
 } from '@mdi/js';
+
+import { authLogoutAction } from '../../redux/auth/auth.action';
 
 import { palette } from '../../styles/theme';
 import Logo from '../../assets/images/logo.png';
@@ -150,12 +154,6 @@ const menus = [
     path: '/home-loan-qualfying',
   },
   {
-    icon: mdiHomeAnalytics,
-    title: 'Home Loan Evaluation',
-    size: 1,
-    path: '#',
-  },
-  {
     icon: mdiCalendarClock,
     title: 'Tripping Scheduler',
     size: 1,
@@ -181,7 +179,11 @@ const menus = [
   },
 ];
 
-const AppBarDrawer = () => {
+const AppBarDrawer = ({
+  // eslint-disable-next-line no-unused-vars
+  auth,
+  authLogout,
+}) => {
   const isOpen = localStorage.getItem('isMenuExpanded') && localStorage.getItem('isMenuExpanded') === '1';
   const classes = useStyles();
   const [open, setOpen] = useState(isOpen);
@@ -198,6 +200,8 @@ const AppBarDrawer = () => {
   };
 
   const onSignout = () => {
+    localStorage.clear();
+    authLogout();
     history.push('/users/signin');
   };
 
@@ -236,7 +240,7 @@ const AppBarDrawer = () => {
           </div>
           <div className={classes.topbarInnerRight}>
             <IconButton color="inherit" edge="start">
-              <Badge badgeContent={2} color="secondary">
+              <Badge badgeContent={2} color="error">
                 <Icon
                   path={mdiAndroidMessages}
                   title="Messages"
@@ -246,7 +250,7 @@ const AppBarDrawer = () => {
               </Badge>
             </IconButton>
             <IconButton color="inherit" edge="start">
-              <Badge badgeContent={9} color="secondary">
+              <Badge badgeContent={9} color="error">
                 <Icon
                   path={mdiBell}
                   title="Notifications"
@@ -295,8 +299,8 @@ const AppBarDrawer = () => {
         <Divider />
         <List>
           {menus.map((menu, index) => (
-            <Link to={menu.path} style={{ textDecoration: 'none' }}>
-              <ListItem button key={`menu-item-${index}`}>
+            <Link to={menu.path} style={{ textDecoration: 'none' }} key={`menu-item-${index}`}>
+              <ListItem button>
                 <ListItemIcon>
                   <Icon
                     path={menu.icon}
@@ -334,4 +338,20 @@ const AppBarDrawer = () => {
   );
 };
 
-export default AppBarDrawer;
+AppBarDrawer.propTypes = {
+  auth: Proptypes.object.isRequired,
+  authLogout: Proptypes.func.isRequired,
+};
+
+const enhanced = compose(
+  connect(
+    (state) => ({
+      auth: state.auth,
+    }),
+    (dispatch) => bindActionCreators({
+      authLogout: authLogoutAction,
+    }, dispatch),
+  ),
+);
+
+export default enhanced(AppBarDrawer);

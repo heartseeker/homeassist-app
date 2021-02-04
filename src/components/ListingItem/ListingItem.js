@@ -67,11 +67,11 @@ const ListingItem = () => {
         <IconButton aria-label="add to favorites">
           <BookmarkIcon />
         </IconButton>
-        <IconButton className={clsx(classes.expand)}>
+        <div className={clsx(classes.expand)}>
           <Button className={classes.readMore} variant="contained" color="primary">
             Inquire now
           </Button>
-        </IconButton>
+        </div>
       </CardActions>
     </Card>
   );

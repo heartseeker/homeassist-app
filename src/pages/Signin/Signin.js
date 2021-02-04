@@ -1,19 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
+import Proptypes from 'prop-types';
+import { Formik, Field, Form } from 'formik';
 import {
+  Backdrop,
   Button,
   Card,
+  CircularProgress,
   makeStyles,
-  TextField,
   Typography,
 } from '@material-ui/core';
+
+import { connect } from 'react-redux';
+import { compose, bindActionCreators } from 'redux';
+import * as yup from 'yup';
+import { authLoginAction } from '../../redux/auth/auth.action';
+
+import TextField from '../../components/Forms/TextField';
 
 import { palette } from '../../styles/theme';
 import Logo from '../../assets/images/logo.png';
 import Facebook from '../../assets/images/facebook.png';
 import Google from '../../assets/images/google.png';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles((theme) => ({
   main: {
     display: 'flex',
     justifyContent: 'center',
@@ -29,7 +39,7 @@ const useStyles = makeStyles({
   },
   container: {
     width: 550,
-    height: 500,
+    minHeight: 500,
     display: 'flex',
     justifyContent: 'center',
   },
@@ -64,14 +74,34 @@ const useStyles = makeStyles({
     display: 'flex',
     justifyContent: 'center',
   },
+  backdrop: {
+    zIndex: theme.zIndex.drawer + 1,
+    color: '#fff',
+  },
+}));
+
+const validationSchema = yup.object({
+  email: yup.string().required().email(),
+  password: yup.string().required(),
 });
 
-const Signin = () => {
+const Signin = ({
+  auth,
+  authLogin,
+}) => {
   const classes = useStyles();
   const history = useHistory();
-  const login = () => {
-    history.push('/property-search');
+
+  const onSubmit = (data) => {
+    authLogin(data);
   };
+
+  useEffect(() => {
+    if (auth.email) {
+      localStorage.setItem('isLogin', '1');
+      history.push('/property-search');
+    }
+  }, [auth.email]);
 
   return (
     <main className={classes.main}>
@@ -80,18 +110,22 @@ const Signin = () => {
         <Card className={classes.container}>
           <div className={classes.loginContainer}>
             <Typography variant="h4">Log in</Typography>
-            <form className={classes.form} noValidate autoComplete="off">
-              <TextField label="Email address" variant="outlined" className={classes.email} />
-              <TextField label="Password" variant="outlined" type="password" />
-            </form>
-            <Button
-              className={classes.login}
-              variant="contained"
-              color="primary"
-              onClick={login}
-            >
-              Login
-            </Button>
+            <Formik initialValues={{ email: '', password: '' }} validationSchema={validationSchema} onSubmit={onSubmit}>
+              {() => (
+                <Form className={classes.form}>
+                  <Field name="email" type="input" as={TextField} variant="outlined" label="Email address" className={classes.email} />
+                  <Field name="password" type="password" as={TextField} variant="outlined" label="Password" />
+                  <Button
+                    className={classes.login}
+                    variant="contained"
+                    color="primary"
+                    type="submit"
+                  >
+                    Login
+                  </Button>
+                </Form>
+              )}
+            </Formik>
             <Typography variant="body2">
               Don&apos;t have an account?&nbsp;
               <Link className={classes.signup} to="/users/signup">Signup here</Link>
@@ -106,8 +140,27 @@ const Signin = () => {
           </div>
         </Card>
       </div>
+      <Backdrop className={classes.backdrop} open={auth.loading}>
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </main>
   );
 };
 
-export default Signin;
+Signin.propTypes = {
+  auth: Proptypes.object.isRequired,
+  authLogin: Proptypes.func.isRequired,
+};
+
+const enhanced = compose(
+  connect(
+    (state) => ({
+      auth: state.auth,
+    }),
+    (dispatch) => bindActionCreators({
+      authLogin: authLoginAction,
+    }, dispatch),
+  ),
+);
+
+export default enhanced(Signin);
