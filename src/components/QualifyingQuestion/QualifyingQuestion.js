@@ -29,7 +29,7 @@ const useStyles = makeStyles({
     flexDirection: 'column',
     alignItems: 'center',
     padding: 20,
-    textAlign: 'center',
+    textAlign: 'justify',
   },
   content: {
     display: 'flex',
@@ -37,6 +37,7 @@ const useStyles = makeStyles({
     alignSelf: 'center',
     marginTop: 20,
     color: palette.primary.main,
+    width: '35rem',
   },
   answers: {
     display: 'flex',
@@ -63,6 +64,11 @@ const useStyles = makeStyles({
     marginTop: 50,
     color: '#fff',
     minHeight: 50,
+  },
+  questionSection: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
   },
 });
 
@@ -236,7 +242,7 @@ const QualifyingQuestion = ({
   };
 
   const renderQuestion = () => (
-    <section>
+    <section className={classes.questionSection}>
       <div className={classes.content}>
         { qualifying && qualifying.currentQuestion && renderQuestionInputType()}
       </div>

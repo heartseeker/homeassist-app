@@ -18,6 +18,9 @@ const useStyles = makeStyles({
     width: '50rem',
     alignSelf: 'center',
   },
+  title: {
+    marginBottom: '1rem',
+  },
 });
 
 const HomeLoanQualifying = ({
@@ -32,7 +35,7 @@ const HomeLoanQualifying = ({
   return (
     <MainLayout>
       <div className={classes.paper}>
-        <h1>Home Loan Qualifying</h1>
+        <h1 className={classes.title}>Home Loan Qualifying</h1>
         { qualifying && qualifying.questions && <QualifyingQuestion /> }
       </div>
     </MainLayout>

@@ -12,6 +12,9 @@ const useStyles = makeStyles({
   listingItem: {
     marginRight: 5,
   },
+  title: {
+    marginBottom: '1rem',
+  },
 });
 
 const properties = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
@@ -21,7 +24,7 @@ const PropertySearch = () => {
 
   return (
     <MainLayout>
-      <h1>Property Search</h1>
+      <h1 className={classes.title}>Property Search</h1>
       <div className={classes.listing}>
         {properties.map((property) => (
           <ListingItem key={property} className={classes.listingItem} />
