@@ -20,6 +20,10 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  childContent: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
 }));
 
 const MainLayout = ({
@@ -32,7 +36,9 @@ const MainLayout = ({
       <AppBarDrawer />
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {children}
+        <div className={classes.childContent}>
+          {children}
+        </div>
       </main>
     </div>
   );

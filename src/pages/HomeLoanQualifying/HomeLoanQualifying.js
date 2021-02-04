@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react';
 import Proptypes from 'prop-types';
+
+import { makeStyles } from '@material-ui/core';
+
 import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
 import { setQuestionsAction } from '../../redux/qualifying/qualifying.action';
@@ -8,17 +11,30 @@ import MainLayout from '../../components/MainLayout.js/MainLayout';
 import QualifyingQuestion from '../../components/QualifyingQuestion/QualifyingQuestion';
 import { QUESTIONS } from '../../config/questions';
 
+const useStyles = makeStyles({
+  paper: {
+    display: 'flex',
+    flexDirection: 'column',
+    width: '50rem',
+    alignSelf: 'center',
+  },
+});
+
 const HomeLoanQualifying = ({
   qualifying,
   setQuestions,
 }) => {
+  const classes = useStyles();
+
   useEffect(() => {
     setQuestions(QUESTIONS);
   }, []);
   return (
     <MainLayout>
-      <h1>Home Loan Qualifying</h1>
-      { qualifying && qualifying.questions && <QualifyingQuestion /> }
+      <div className={classes.paper}>
+        <h1>Home Loan Qualifying</h1>
+        { qualifying && qualifying.questions && <QualifyingQuestion /> }
+      </div>
     </MainLayout>
   );
 };

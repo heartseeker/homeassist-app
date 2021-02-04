@@ -442,7 +442,7 @@ export const QUESTIONS = [
         next: NEXT.proceed,
         points: 3,
         answer: 'Php39,999.99 and below',
-        message: 'Do you have a spouse, sibling, parent or son/daughter that has a regular monthly income?',
+        message: null,
         sortOrder: 1,
       },
       {

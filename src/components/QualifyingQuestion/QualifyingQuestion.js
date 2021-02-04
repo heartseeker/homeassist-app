@@ -50,6 +50,7 @@ const useStyles = makeStyles({
   },
   actionContainer: {
     display: 'flex',
+    justifyContent: 'flex-end',
     marginTop: 20,
   },
   actionButton: {
@@ -79,8 +80,8 @@ const QualifyingQuestion = ({
   // eslint-disable-next-line no-unused-vars
   const [isStarted, setIsStarted] = useState(false);
   const [isFinal, setIsFinal] = useState(false);
-  // eslint-disable-next-line no-unused-vars
   const [note, setNote] = useState(null);
+  const [from, setFrom] = useState(null);
 
   const updatHistoryTrace = (answer) => {
     // update answer in history trace
@@ -130,6 +131,8 @@ const QualifyingQuestion = ({
   };
 
   const nextQuestion = () => {
+    setCurrentAnswer(null);
+    setFrom('NEXT');
     const { currentQuestion } = qualifying;
     if (currentQuestion.inputType === 'radio') {
       return radioNextQuestionAction();
@@ -139,6 +142,7 @@ const QualifyingQuestion = ({
 
   const previous = () => {
     setCurrentAnswer(null);
+    setFrom('PREV');
     // update history trace
     const updatedHistoryTrace = historyTrace.filter((q) => q.questionId !== qualifying.currentQuestion.questionId);
     setHistoryTrace(updatedHistoryTrace);
@@ -202,10 +206,10 @@ const QualifyingQuestion = ({
   }, [qualifying, currentQuestionIndex]);
 
   useEffect(() => {
-    console.log('+'.repeat(50));
-    console.log(historyTrace);
-    console.log('+'.repeat(50));
     if (historyTrace.length === 0 && currentAnswer === null) {
+      return;
+    }
+    if (from === 'NEXT') {
       return;
     }
     const currentQuestionAnswer = historyTrace.find((q) => q.questionId === qualifying.currentQuestion.questionId);
@@ -215,7 +219,6 @@ const QualifyingQuestion = ({
     }
     // for checkbox
     if (currentQuestionAnswer && currentQuestionAnswer.answer && currentQuestionAnswer.inputType === 'checkbox') {
-      console.log('INIT CHECKBOX ANSWER: ', currentQuestionAnswer.answer);
       setCurrentAnswer(currentQuestionAnswer.answer);
     }
   }, [historyTrace, qualifying.currentQuestion]);
@@ -241,7 +244,7 @@ const QualifyingQuestion = ({
         <Button disabled={currentQuestionIndex === 0} onClick={previous} className={classes.actionButton} variant="contained" color="secondary">
           Previous
         </Button>
-        <Button disabled={!currentAnswer} onClick={nextQuestion} className={classes.actionButton} variant="contained" color="secondary">
+        <Button disabled={!currentAnswer || currentAnswer.length < 1} onClick={nextQuestion} className={classes.actionButton} variant="contained" color="secondary">
           Next
         </Button>
       </div>
