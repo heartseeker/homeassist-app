@@ -19,6 +19,7 @@ const useStyles = makeStyles({
   note: {
     marginBottom: 20,
     color: '#1a1a1a',
+    textAlign: 'justify',
   },
 });
 
