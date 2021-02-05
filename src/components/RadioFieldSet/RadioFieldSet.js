@@ -26,6 +26,7 @@ const useStyles = makeStyles({
 const RadioFieldSet = ({
   question,
   answer,
+  // eslint-disable-next-line no-unused-vars
   note,
   handleChange,
 }) => {
@@ -35,7 +36,7 @@ const RadioFieldSet = ({
       <Typography className={classes.title} variant="h5">
         {question.question}
       </Typography>
-      { note && <Typography className={classes.note} variant="body2">{note}</Typography> }
+      {/* { note && <Typography className={classes.note} variant="body2">{note}</Typography> } */}
       <RadioGroup
         name={question.questionId}
         value={answer}

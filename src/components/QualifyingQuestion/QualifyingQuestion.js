@@ -3,11 +3,34 @@ import Proptypes from 'prop-types';
 import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import {
+  // Avatar,
   Button,
   Card,
+  List,
+  ListItem,
+  // ListItemAvatar,
+  ListItemIcon,
+  ListItemText,
   makeStyles,
   Typography,
 } from '@material-ui/core';
+
+// import Filter1Icon from '@material-ui/icons/Filter1';
+// import InfoIcon from '@material-ui/icons/Info';
+// import InfoOutlinedIcon from '@material-ui/icons/InfoOutlined';
+// import Filter1TwoTone from '@material-ui/icons';
+import {
+  Filter1TwoTone,
+  Filter2TwoTone,
+  Filter3TwoTone,
+  Filter4TwoTone,
+  Filter5TwoTone,
+  Filter6TwoTone,
+  Filter7TwoTone,
+  Filter8TwoTone,
+  Filter9TwoTone,
+  HelpOutlineTwoTone,
+} from '@material-ui/icons';
 
 import {
   setCurrentQuestionAction,
@@ -81,10 +104,12 @@ const QualifyingQuestion = ({
   // value of the answer obly
   const [currentAnswer, setCurrentAnswer] = useState('');
   // whole object of the answer
+  // eslint-disable-next-line no-unused-vars
   const [completeAnswer, setCompleteAnswer] = useState(null);
   const [historyTrace, setHistoryTrace] = useState([]);
   // eslint-disable-next-line no-unused-vars
   const [isStarted, setIsStarted] = useState(false);
+  // eslint-disable-next-line no-unused-vars
   const [isFinal, setIsFinal] = useState(false);
   const [note, setNote] = useState(null);
   const [from, setFrom] = useState(null);
@@ -257,11 +282,78 @@ const QualifyingQuestion = ({
     </section>
   );
 
-  const renderDone = () => (
-    <div>
-      {completeAnswer.message}
-    </div>
-  );
+  const getNumberIcon = (number) => {
+    let icon;
+    switch (number) {
+      case 1:
+        icon = <Filter1TwoTone />;
+        break;
+      case 2:
+        icon = <Filter2TwoTone />;
+        break;
+      case 3:
+        icon = <Filter3TwoTone />;
+        break;
+      case 4:
+        icon = <Filter4TwoTone />;
+        break;
+      case 5:
+        icon = <Filter5TwoTone />;
+        break;
+      case 6:
+        icon = <Filter6TwoTone />;
+        break;
+      case 7:
+        icon = <Filter7TwoTone />;
+        break;
+      case 8:
+        icon = <Filter8TwoTone />;
+        break;
+      case 9:
+        icon = <Filter9TwoTone />;
+        break;
+      default:
+        icon = <Filter9TwoTone />;
+        break;
+    }
+    return icon;
+  };
+
+  const renderDone = () => {
+    let feedbacks;
+    if (historyTrace.length > 0) {
+      feedbacks = historyTrace.filter((q) => q.answer && q.answer.message);
+    }
+    return (
+      <div>
+        <List>
+          <ListItem>
+            <ListItemIcon>
+              <HelpOutlineTwoTone />
+            </ListItemIcon>
+            <ListItemText
+              disableTypography
+              primary={<Typography variant="h6">Feedback</Typography>}
+            />
+          </ListItem>
+          {feedbacks.map((fb, index) => (
+            <ListItem>
+              <ListItemIcon>
+                {getNumberIcon(index + 1)}
+              </ListItemIcon>
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <Typography variant="body2">{fb.question}</Typography>
+                  <Typography style={{ marginLeft: 5 }} variant="subtitle2">{fb.answer.answer}</Typography>
+                </div>
+                <p style={{ color: '#7f7f7f' }}>{fb.answer.message}</p>
+              </div>
+            </ListItem>
+          ))}
+        </List>
+      </div>
+    );
+  };
 
   if (!isStarted) {
     return (
@@ -276,6 +368,7 @@ const QualifyingQuestion = ({
     );
   }
 
+  // if (!isStarted) {
   if (isFinal && completeAnswer) {
     return (
       <Card className={classes.root}>
