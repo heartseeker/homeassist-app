@@ -8,13 +8,12 @@ const FormTextField = ({ label, ...props }) => {
   const [field, meta] = useField(props);
   const errorText = meta.touched && meta.error ? meta.error : '';
   return (
-    <TextField {...props} label={label} helperText={errorText} error={errorText} />
+    <TextField {...props} label={label} helperText={errorText} error={errorText !== ''} />
   );
 };
 
 FormTextField.propTypes = {
   label: PropTypes.string.isRequired,
-  props: PropTypes.any.isRequired,
 };
 
 export default FormTextField;

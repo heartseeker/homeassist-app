@@ -1,7 +1,7 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
 
-import MainLayout from '../../components/MainLayout.js/MainLayout';
+import MainLayout from '../../components/MainLayout/MainLayout';
 import ListingItem from '../../components/ListingItem/ListingItem';
 
 const useStyles = makeStyles({

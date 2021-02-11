@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Proptypes from 'prop-types';
 import clsx from 'clsx';
+
+import '../../configureAmplify';
+import { Auth } from 'aws-amplify';
 
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -187,7 +190,6 @@ const AppBarDrawer = ({
   const isOpen = localStorage.getItem('isMenuExpanded') && localStorage.getItem('isMenuExpanded') === '1';
   const classes = useStyles();
   const [open, setOpen] = useState(isOpen);
-  const history = useHistory();
 
   const handleDrawerOpen = () => {
     localStorage.setItem('isMenuExpanded', '1');
@@ -201,8 +203,8 @@ const AppBarDrawer = ({
 
   const onSignout = () => {
     localStorage.clear();
+    Auth.signOut();
     authLogout();
-    history.push('/users/signin');
   };
 
   return (

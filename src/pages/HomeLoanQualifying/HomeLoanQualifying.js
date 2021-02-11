@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators, compose } from 'redux';
 import { setQuestionsAction } from '../../redux/qualifying/qualifying.action';
 
-import MainLayout from '../../components/MainLayout.js/MainLayout';
+import MainLayout from '../../components/MainLayout/MainLayout';
 import QualifyingQuestion from '../../components/QualifyingQuestion/QualifyingQuestion';
 import { QUESTIONS } from '../../config/questions';
 

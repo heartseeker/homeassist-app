@@ -1,6 +1,7 @@
 import React from 'react';
-// eslint-disable-next-line no-unused-vars
-import { Link } from 'react-router-dom';
+import {
+  useHistory,
+} from 'react-router-dom';
 import Proptypes from 'prop-types';
 import {
   Formik,
@@ -16,22 +17,16 @@ import {
 import '../../configureAmplify';
 import { Auth } from 'aws-amplify';
 
-import { connect } from 'react-redux';
-import { compose, bindActionCreators } from 'redux';
 import * as yup from 'yup';
-import {
-  authCalledAction,
-  authErrorAction,
-  authLoadingAction,
-  authSetUserAction,
-} from '../../redux/auth/auth.action';
+import { connect } from 'react-redux';
+import { bindActionCreators, compose } from 'redux';
+
+import { authLoadingAction, authErrorAction } from '../../redux/auth/auth.action';
 
 import OutsideLayout from '../../components/OutsideLayout/OutisdeLayout';
 import TextField from '../../components/Forms/TextField';
 
 import { palette } from '../../styles/theme';
-import Facebook from '../../assets/images/facebook.png';
-import Google from '../../assets/images/google.png';
 
 const useStyles = makeStyles(() => ({
   loginContainer: {
@@ -44,6 +39,9 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
   },
+  email: {
+    marginBottom: 20,
+  },
   login: {
     color: '#fff',
     width: '100%',
@@ -53,14 +51,6 @@ const useStyles = makeStyles(() => ({
   },
   signup: {
     color: palette.primary.main,
-  },
-  forgotText: {
-    color: palette.secondary.main,
-  },
-  forgotPassword: {
-    marginBottom: 5,
-    marginTop: 5,
-    alignSelf: 'flex-end',
   },
   create: {
     marginTop: 20,
@@ -77,27 +67,24 @@ const validationSchema = yup.object({
   password: yup.string().required(),
 });
 
-const Signin = ({
+const Signup = ({
   // eslint-disable-next-line no-unused-vars
   auth,
-  authLoading,
-  authCalled,
   authError,
-  authSetUser,
+  authLoading,
 }) => {
   const classes = useStyles();
+  const history = useHistory();
 
   const onSubmit = async (data) => {
     const { email, password } = data;
     authLoading(true);
     try {
-      const userData = await Auth.signIn(email, password);
-      authSetUser(userData);
-      authError(null);
+      await Auth.signUp({ username: email, password, attributes: { email } });
       authLoading(false);
-      authCalled();
+      authError(null);
+      history.push(`/users/confirm-signup?email=${email}`);
     } catch (err) {
-      authCalled();
       authError(err);
       authLoading(false);
     }
@@ -106,14 +93,11 @@ const Signin = ({
   return (
     <OutsideLayout>
       <div className={classes.loginContainer}>
-        <Typography variant="h4">Log in</Typography>
+        <Typography variant="h4">Sign up</Typography>
         <Formik validateOnMount initialValues={{ email: '', password: '' }} validationSchema={validationSchema} onSubmit={onSubmit}>
           {({ isValid }) => (
             <Form className={classes.form}>
               <Field name="email" type="input" as={TextField} variant="outlined" label="Email address" className={classes.email} />
-              <Typography className={classes.forgotPassword} variant="body2">
-                <Link className={classes.forgotText} to="/users/forgot-password">Forgot Password?</Link>
-              </Typography>
               <Field name="password" type="password" as={TextField} variant="outlined" label="Password" />
               <Button
                 disabled={!isValid}
@@ -122,37 +106,20 @@ const Signin = ({
                 color="primary"
                 type="submit"
               >
-                Login
+                Sign up
               </Button>
             </Form>
           )}
         </Formik>
-        <Typography variant="body2">
-          Don&apos;t have an account?&nbsp;
-          <Link className={classes.signup} to="/users/signup">Signup here</Link>
-        </Typography>
-        <Typography className={classes.create} variant="body2">
-          Or create account using social media
-        </Typography>
-        <div className={classes.social}>
-          <Button onClick={() => Auth.federatedSignIn({ provider: 'Facebook' })} style={{ marginRight: 20 }}>
-            <img src={Facebook} alt="Facebook" />
-          </Button>
-          <Button onClick={() => Auth.federatedSignIn({ provider: 'Google' })}>
-            <img src={Google} alt="Google" />
-          </Button>
-        </div>
       </div>
     </OutsideLayout>
   );
 };
 
-Signin.propTypes = {
+Signup.propTypes = {
   auth: Proptypes.object.isRequired,
   authLoading: Proptypes.func.isRequired,
-  authCalled: Proptypes.func.isRequired,
   authError: Proptypes.func.isRequired,
-  authSetUser: Proptypes.func.isRequired,
 };
 
 const enhanced = compose(
@@ -162,11 +129,9 @@ const enhanced = compose(
     }),
     (dispatch) => bindActionCreators({
       authLoading: authLoadingAction,
-      authSetUser: authSetUserAction,
-      authCalled: authCalledAction,
       authError: authErrorAction,
     }, dispatch),
   ),
 );
 
-export default enhanced(Signin);
+export default enhanced(Signup);
