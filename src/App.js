@@ -43,7 +43,7 @@ const App = ({
       authCalled();
     } catch (err) {
       // authCalled(true);
-      authLoading();
+      authLoading(false);
     }
   };
 
