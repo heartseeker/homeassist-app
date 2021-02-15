@@ -1,31 +1,6 @@
 {
-  "api": {
-    "homeassistapp": {
-      "service": "AppSync",
-      "providerPlugin": "awscloudformation",
-      "output": {
-        "authConfig": {
-          "defaultAuthentication": {
-            "authenticationType": "API_KEY",
-            "apiKeyConfig": {
-              "apiKeyExpirationDays": 365,
-              "description": "public"
-            }
-          },
-          "additionalAuthenticationProviders": []
-        }
-      }
-    }
-  },
-  "function": {
-    "homeassistappa053c099PostConfirmation": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    }
-  },
   "auth": {
-    "homeassistappee97a109": {
+    "homeassistapp7448bc57": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],

@@ -1,24 +1,19 @@
 {
   "dev": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-homeassistapp-dev-170938-authRole",
-      "UnauthRoleArn": "arn:aws:iam::567775025707:role/amplify-homeassistapp-dev-170938-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::567775025707:role/amplify-homeassistapp-dev-170938-authRole",
+      "AuthRoleName": "amplify-homeassistapp-dev-225558-authRole",
+      "UnauthRoleArn": "arn:aws:iam::567775025707:role/amplify-homeassistapp-dev-225558-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::567775025707:role/amplify-homeassistapp-dev-225558-authRole",
       "Region": "ap-southeast-1",
-      "DeploymentBucketName": "amplify-homeassistapp-dev-170938-deployment",
-      "UnauthRoleName": "amplify-homeassistapp-dev-170938-unauthRole",
-      "StackName": "amplify-homeassistapp-dev-170938",
-      "StackId": "arn:aws:cloudformation:ap-southeast-1:567775025707:stack/amplify-homeassistapp-dev-170938/8a9ae050-6ab6-11eb-ac49-06e612b9775e",
-      "AmplifyAppId": "drvnglqx749b"
+      "DeploymentBucketName": "amplify-homeassistapp-dev-225558-deployment",
+      "UnauthRoleName": "amplify-homeassistapp-dev-225558-unauthRole",
+      "StackName": "amplify-homeassistapp-dev-225558",
+      "StackId": "arn:aws:cloudformation:ap-southeast-1:567775025707:stack/amplify-homeassistapp-dev-225558/f4284300-6f9d-11eb-a6df-0a36958102b6",
+      "AmplifyAppId": "drdsnr3ptxwdp"
     },
     "categories": {
-      "function": {
-        "homeassistappa053c099PostConfirmation": {
-          "GROUP": "Authenticated"
-        }
-      },
       "auth": {
-        "homeassistappee97a109": {}
+        "homeassistapp7448bc57": {}
       }
     }
   }

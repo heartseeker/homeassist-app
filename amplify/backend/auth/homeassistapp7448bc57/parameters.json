@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "homeassistappee97a109_identitypool_ee97a109",
+    "identityPoolName": "homeassistapp7448bc57_identitypool_7448bc57",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "homeasee97a109",
-    "userPoolName": "homeassistappee97a109_userpool_ee97a109",
+    "resourceNameTruncated": "homeas7448bc57",
+    "userPoolName": "homeassistapp7448bc57_userpool_7448bc57",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -20,7 +20,7 @@
     "requiredAttributes": [
         "email"
     ],
-    "userpoolClientGenerateSecret": true,
+    "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
     "userpoolClientWriteAttributes": [
         "email"
@@ -28,10 +28,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "homeasee97a109_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "homeas7448bc57_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "ee97a109",
-    "resourceName": "homeassistappee97a109",
+    "sharedId": "7448bc57",
+    "resourceName": "homeassistapp7448bc57",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -50,15 +50,15 @@
     "usernameAttributes": [
         "email"
     ],
-    "hostedUIDomainName": "homeassistappee97a109-ee97a109",
+    "hostedUIDomainName": "homeassistapp7448bc57-7448bc57",
     "authProvidersUserPool": [
         "Facebook",
         "Google"
     ],
     "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"id\"}},{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://dev.homeassistph.com/\"],\"LogoutURLs\":[\"https://dev.homeassistph.com/\"]}",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
-    "dependsOn": [],
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://dev-homeassistph.s3-website-ap-southeast-1.amazonaws.com/\"],\"LogoutURLs\":[\"https://dev-homeassistph.s3-website-ap-southeast-1.amazonaws.com/\",\"https://dev-homeassistph.s3-website-ap-southeast-1.amazonaws.com/\"]}"
+    "dependsOn": []
 }

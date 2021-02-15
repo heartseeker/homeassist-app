@@ -3,16 +3,12 @@
 
 const awsmobile = {
     "aws_project_region": "ap-southeast-1",
-    "aws_appsync_graphqlEndpoint": "https://uyyzkwy5z5dxnpu4lxpakvj7pm.appsync-api.ap-southeast-1.amazonaws.com/graphql",
-    "aws_appsync_region": "ap-southeast-1",
-    "aws_appsync_authenticationType": "API_KEY",
-    "aws_appsync_apiKey": "da2-5bdb3e56bfgvjpnwilrp77swxi",
-    "aws_cognito_identity_pool_id": "ap-southeast-1:3399fb17-bb86-4165-bd2b-23c230031b44",
+    "aws_cognito_identity_pool_id": "ap-southeast-1:546a16be-915a-4106-ae6c-21517b655582",
     "aws_cognito_region": "ap-southeast-1",
-    "aws_user_pools_id": "ap-southeast-1_HZ9XlxFYA",
-    "aws_user_pools_web_client_id": "5b1t5evjg2jhp8inqgesnb1cic",
+    "aws_user_pools_id": "ap-southeast-1_7OhNNjtVZ",
+    "aws_user_pools_web_client_id": "5h2kij5oeen6t3beimt794gev3",
     "oauth": {
-        "domain": "homeassistappee97a109-ee97a109-dev.auth.ap-southeast-1.amazoncognito.com",
+        "domain": "homeassistapp7448bc57-7448bc57-dev.auth.ap-southeast-1.amazoncognito.com",
         "scope": [
             "phone",
             "email",
@@ -20,8 +16,8 @@ const awsmobile = {
             "profile",
             "aws.cognito.signin.user.admin"
         ],
-        "redirectSignIn": "https://dev-homeassistph.s3-website-ap-southeast-1.amazonaws.com/",
-        "redirectSignOut": "https://dev-homeassistph.s3-website-ap-southeast-1.amazonaws.com/,https://dev-homeassistph.s3-website-ap-southeast-1.amazonaws.com/",
+        "redirectSignIn": "https://dev.homeassistph.com/",
+        "redirectSignOut": "https://dev.homeassistph.com/",
         "responseType": "code"
     },
     "federationTarget": "COGNITO_USER_POOLS"
