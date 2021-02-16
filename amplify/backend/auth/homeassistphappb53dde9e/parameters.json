@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "homeassistapp7448bc57_identitypool_7448bc57",
+    "identityPoolName": "homeassistphappb53dde9e_identitypool_b53dde9e",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "homeas7448bc57",
-    "userPoolName": "homeassistapp7448bc57_userpool_7448bc57",
+    "resourceNameTruncated": "homeasb53dde9e",
+    "userPoolName": "homeassistphappb53dde9e_userpool_b53dde9e",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -18,7 +18,9 @@
     "passwordPolicyMinLength": 8,
     "passwordPolicyCharacters": [],
     "requiredAttributes": [
-        "email"
+        "email",
+        "family_name",
+        "given_name"
     ],
     "userpoolClientGenerateSecret": false,
     "userpoolClientRefreshTokenValidity": 30,
@@ -28,10 +30,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "homeas7448bc57_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "homeasb53dde9e_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "7448bc57",
-    "resourceName": "homeassistapp7448bc57",
+    "sharedId": "b53dde9e",
+    "resourceName": "homeassistphappb53dde9e",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -50,15 +52,20 @@
     "usernameAttributes": [
         "email"
     ],
-    "hostedUIDomainName": "homeassistapp7448bc57-7448bc57",
+    "triggers": "{}",
+    "hostedUIDomainName": "homeassistphappb53dde9e-b53dde9e",
     "authProvidersUserPool": [
         "Facebook",
         "Google"
     ],
-    "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"id\"}},{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"username\":\"sub\"}}]",
+    "hostedUIProviderMeta": "[{\"ProviderName\":\"Facebook\",\"authorize_scopes\":\"email,public_profile\",\"AttributeMapping\":{\"email\":\"email\",\"family_name\":\"last_name\",\"given_name\":\"first_name\",\"username\":\"id\"}},{\"ProviderName\":\"Google\",\"authorize_scopes\":\"openid email profile\",\"AttributeMapping\":{\"email\":\"email\",\"family_name\":\"family_name\",\"given_name\":\"given_name\",\"username\":\"sub\"}}]",
     "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"https://dev.homeassistph.com/\"],\"LogoutURLs\":[\"https://dev.homeassistph.com/\"]}",
     "userPoolGroupList": [],
     "serviceName": "Cognito",
     "usernameCaseSensitive": false,
+    "parentStack": {
+        "Ref": "AWS::StackId"
+    },
+    "permissions": [],
     "dependsOn": []
 }
