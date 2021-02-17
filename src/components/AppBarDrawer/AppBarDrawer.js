@@ -323,7 +323,7 @@ const AppBarDrawer = ({
               <ListItemIcon>
                 <Avatar src={userAvatar} className={classes.avatar}>JS</Avatar>
               </ListItemIcon>
-              <ListItemText primary="John Smith" />
+              <ListItemText primary={`${auth.user.attributes.given_name} ${auth.user.attributes.family_name}`} />
               <ListItemIcon>
                 <Icon
                   path={mdiLogout}
