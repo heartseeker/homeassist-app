@@ -1,8 +1,8 @@
 {
-    "identityPoolName": "homeassistphappb53dde9e_identitypool_b53dde9e",
+    "identityPoolName": "homeassistphapp58f23a9b_identitypool_58f23a9b",
     "allowUnauthenticatedIdentities": false,
-    "resourceNameTruncated": "homeasb53dde9e",
-    "userPoolName": "homeassistphappb53dde9e_userpool_b53dde9e",
+    "resourceNameTruncated": "homeas58f23a9b",
+    "userPoolName": "homeassistphapp58f23a9b_userpool_58f23a9b",
     "autoVerifiedAttributes": [
         "email"
     ],
@@ -30,10 +30,10 @@
     "userpoolClientReadAttributes": [
         "email"
     ],
-    "userpoolClientLambdaRole": "homeasb53dde9e_userpoolclient_lambda_role",
+    "userpoolClientLambdaRole": "homeas58f23a9b_userpoolclient_lambda_role",
     "userpoolClientSetAttributes": false,
-    "sharedId": "b53dde9e",
-    "resourceName": "homeassistphappb53dde9e",
+    "sharedId": "58f23a9b",
+    "resourceName": "homeassistphapp58f23a9b",
     "authSelections": "identityPoolAndUserPool",
     "authRoleArn": {
         "Fn::GetAtt": [
@@ -53,7 +53,7 @@
         "email"
     ],
     "triggers": "{}",
-    "hostedUIDomainName": "homeassistphappb53dde9e-b53dde9e",
+    "hostedUIDomainName": "homeassistphapp58f23a9b-58f23a9b",
     "authProvidersUserPool": [
         "Facebook",
         "Google"

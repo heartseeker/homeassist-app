@@ -1,6 +1,6 @@
 {
   "auth": {
-    "homeassistphappb53dde9e": {
+    "homeassistphapp58f23a9b": {
       "service": "Cognito",
       "providerPlugin": "awscloudformation",
       "dependsOn": [],
