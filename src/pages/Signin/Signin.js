@@ -73,8 +73,8 @@ const useStyles = makeStyles(() => ({
 }));
 
 const validationSchema = yup.object({
-  email: yup.string().required().email(),
-  password: yup.string().required(),
+  email: yup.string().required('Email address is required').email(),
+  password: yup.string().required('Password is required'),
 });
 
 const Signin = ({

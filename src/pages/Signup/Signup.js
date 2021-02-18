@@ -39,7 +39,7 @@ const useStyles = makeStyles(() => ({
     display: 'flex',
     flexDirection: 'column',
   },
-  email: {
+  mb20: {
     marginBottom: 20,
   },
   login: {
@@ -63,8 +63,17 @@ const useStyles = makeStyles(() => ({
 }));
 
 const validationSchema = yup.object({
-  email: yup.string().required().email(),
-  password: yup.string().required(),
+  givenName: yup.string().required('Given name is required'),
+  familyName: yup.string().required('Family name is required'),
+  email: yup.string().required('Email address is required').email(),
+  password: yup.string().required('Password is required'),
+  confirmPassword: yup.string().required('Repeat Password is required').when('password', {
+    is: (val) => val && val.length > 0,
+    then: yup.string().oneOf(
+      [yup.ref('password')],
+      'Password does not match',
+    ),
+  }),
 });
 
 const Signup = ({
@@ -75,12 +84,28 @@ const Signup = ({
 }) => {
   const classes = useStyles();
   const history = useHistory();
+  const initialValues = {
+    givenName: '',
+    familyName: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  };
 
   const onSubmit = async (data) => {
-    const { email, password } = data;
+    const {
+      givenName,
+      familyName,
+      email,
+      password,
+    } = data;
     authLoading(true);
     try {
-      await Auth.signUp({ username: email, password, attributes: { email } });
+      await Auth.signUp({
+        username: email,
+        password,
+        attributes: { email, given_name: givenName, family_name: familyName },
+      });
       authLoading(false);
       authError(null);
       history.push(`/users/confirm-signup?email=${email}`);
@@ -94,11 +119,14 @@ const Signup = ({
     <OutsideLayout>
       <div className={classes.loginContainer}>
         <Typography variant="h4">Sign up</Typography>
-        <Formik validateOnMount initialValues={{ email: '', password: '' }} validationSchema={validationSchema} onSubmit={onSubmit}>
+        <Formik validateOnMount initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
           {({ isValid }) => (
             <Form className={classes.form}>
-              <Field name="email" type="input" as={TextField} variant="outlined" label="Email address" className={classes.email} />
-              <Field name="password" type="password" as={TextField} variant="outlined" label="Password" />
+              <Field name="givenName" type="input" as={TextField} variant="outlined" label="Given name" className={classes.mb20} />
+              <Field name="familyName" type="input" as={TextField} variant="outlined" label="Family name" className={classes.mb20} />
+              <Field name="email" type="input" as={TextField} variant="outlined" label="Email address" className={classes.mb20} />
+              <Field name="password" type="password" as={TextField} variant="outlined" label="Password" className={classes.mb20} />
+              <Field name="confirmPassword" type="password" as={TextField} variant="outlined" label="Confirm Password" />
               <Button
                 disabled={!isValid}
                 className={classes.login}
