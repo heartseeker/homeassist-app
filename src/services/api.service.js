@@ -1,9 +1,8 @@
 import axios from 'axios';
-import { API_URL } from '../config/server';
 
 const createAPI = () => {
   const options = {
-    baseURL: API_URL,
+    baseURL: 'https://nmkajrttqi.execute-api.ap-southeast-1.amazonaws.com/dev',
     headers: {
       'Content-Type': 'application/json',
     },
