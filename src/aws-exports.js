@@ -20,7 +20,14 @@ const awsmobile = {
         "redirectSignOut": "https://dev.homeassistph.com/",
         "responseType": "code"
     },
-    "federationTarget": "COGNITO_USER_POOLS"
+    "federationTarget": "COGNITO_USER_POOLS",
+    "aws_cloud_logic_custom": [
+        {
+            "name": "mainhomeassistfunc",
+            "endpoint": "https://nmkajrttqi.execute-api.ap-southeast-1.amazonaws.com/dev",
+            "region": "ap-southeast-1"
+        }
+    ]
 };
 
 

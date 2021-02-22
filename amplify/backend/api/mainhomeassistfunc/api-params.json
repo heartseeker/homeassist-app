@@ -1,0 +1,36 @@
+{
+    "paths": [
+        {
+            "name": "/item",
+            "lambdaFunction": "mainhomeassistphclient",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/item"
+        }
+    ],
+    "resourceName": "mainhomeassistfunc",
+    "apiName": "mainhomeassistfunc",
+    "functionArns": [
+        {
+            "lambdaFunction": "mainhomeassistphclient"
+        }
+    ],
+    "privacy": {
+        "auth": 0,
+        "unauth": 0,
+        "authRoleName": "amplify-homeassistphapp-dev-222527-authRole",
+        "unAuthRoleName": "amplify-homeassistphapp-dev-222527-unauthRole"
+    },
+    "dependsOn": [
+        {
+            "category": "function",
+            "resourceName": "mainhomeassistphclient",
+            "attributes": [
+                "Name",
+                "Arn"
+            ]
+        }
+    ],
+    "uuid": "3d83670f"
+}

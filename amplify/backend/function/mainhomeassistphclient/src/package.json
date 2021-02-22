@@ -1,0 +1,21 @@
+{
+  "name": "mainhomeassistphclient",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "aws-serverless-express": "^3.3.5",
+    "body-parser": "^1.17.1",
+    "bookshelf": "^1.2.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.15.2",
+    "knex": "^0.21.17",
+    "mysql": "^2.18.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

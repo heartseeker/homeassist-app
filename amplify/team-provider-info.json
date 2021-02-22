@@ -14,6 +14,12 @@
     "categories": {
       "auth": {
         "homeassistphapp58f23a9b": {}
+      },
+      "function": {
+        "mainhomeassistphclient": {
+          "deploymentBucketName": "amplify-homeassistphapp-dev-222527-deployment",
+          "s3Key": "amplify-builds/mainhomeassistphclient-422f775242744d6b6f77-build.zip"
+        }
       }
     }
   }
