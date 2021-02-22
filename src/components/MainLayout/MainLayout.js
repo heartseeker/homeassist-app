@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { compose } from 'redux';
@@ -37,8 +37,23 @@ const useStyles = makeStyles((theme) => ({
 const MainLayout = ({
   auth,
   children,
+  onScrollBottom,
 }) => {
   const classes = useStyles();
+
+  const handleScroll = () => {
+    // console.log(`${window.innerHeight + window.scrollY} >= ${document.body.offsetHeight}`);
+    if ((window.innerHeight + window.scrollY) + 1 >= document.body.offsetHeight) {
+      if (onScrollBottom) {
+        onScrollBottom();
+      }
+      // Show loading spinner and make fetch request to api
+    }
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+  }, []);
 
   if (!auth.user) {
     return null;
@@ -58,9 +73,14 @@ const MainLayout = ({
   );
 };
 
+MainLayout.defaultProps = {
+  onScrollBottom: null,
+};
+
 MainLayout.propTypes = {
   auth: PropTypes.object.isRequired,
   children: PropTypes.node.isRequired,
+  onScrollBottom: PropTypes.func,
 };
 
 const enhanced = compose(

@@ -55,7 +55,6 @@ const CheckboxesGroup = ({
     /* eslint-disable */
     const newState = {};
     let hasNoneOfTheAbove = false;
-    console.log('state', state);
     for (const [key, value] of Object.entries(state)) {
       newState[key] = false;
       if (noneOfTheAbove.includes(key)) {

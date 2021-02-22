@@ -26,6 +26,9 @@ app.get('/item', async (req, res) => {
   if (req.query.page) {
     page = req.query.page
   }
+  if (req.query.pageSize) {
+    pageSize = req.query.pageSize
+  }
 
   const fetchPageOptions = { pageSize, page };
 
@@ -86,7 +89,6 @@ app.get('/item', async (req, res) => {
     .query('where', 'term_id', 'in', parentIds)
     .fetchAll({ withRelated: ['term'] })
     parentTerms = parentTerms.models.map(m => m.serialize())
-    // console.log(parentTerms)
 
     // insert the parent term to child
     relationTermTaxonomy = relationTermTaxonomy.map(r => {
@@ -112,8 +114,9 @@ app.get('/item', async (req, res) => {
 
     result = result.map(r => {
       const termRelation = relationTermTaxonomy.filter(t => t.object_id === r.ID)
+      const plain_post_content = r.post_content.replace(/<\/?[^>]+(>|$)/g, '');
       if (!termRelation) {
-        return r
+        return { ...r, plain_post_content }
       }
       // set the location field
       let location = null
@@ -121,8 +124,13 @@ app.get('/item', async (req, res) => {
         if (t.taxonomy !== 'cf47rs_property_location') {
           return;
         }
+        if (t.parent === 0) {
+          return;
+        }
         // subcity
-        location = `${t.term.name}, ${t.parent.term.name}`
+        if (t.term && t.term.name && t.parent.term.name) {
+          location = `${t.term.name}, ${t.parent.term.name}`
+        }
       })
       // set image thumbnail
       let thumbnail = null
@@ -131,7 +139,7 @@ app.get('/item', async (req, res) => {
         thumbnail = postThumb.guid.replace('.jpg', '-554x360-c-center.jpg')
       }
       
-      return { ...r, location, thumbnail, termRelation }
+      return { ...r, plain_post_content, location, thumbnail, termRelation }
     })
     
     res.json({ result, ...response.pagination })
