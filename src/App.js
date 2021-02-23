@@ -50,22 +50,6 @@ const App = ({
 
   useEffect(() => {
     checkUser();
-    /* eslint-disable */
-    window.fbAsyncInit = function () {
-    FB.init({
-        xfbml: true,
-        version: 'v9.0',
-    });
-    };
-
-    (function (d, s, id) {
-    var js, fjs = d.getElementsByTagName(s)[0];
-    if (d.getElementById(id)) return;
-    js = d.createElement(s); js.id = id;
-    js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
-    fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-    /* eslint-enable */
   }, []);
 
   return (
@@ -80,7 +64,7 @@ const App = ({
         <Route path="/home-loan-qualfying" component={HomeLoanQualifying} />
         <Route path="/" exact component={auth.user ? PropertySearch : Signin} />
       </Switch>
-      {auth.user && <FacebookChat />}
+      <FacebookChat enable={auth.user !== null} />
     </Router>
   );
 };
