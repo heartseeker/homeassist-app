@@ -26,6 +26,7 @@ import ConfirmSignup from './pages/ConfirmSignup/ConfirmSignup';
 import NewPassword from './pages/NewPassword/NewPassword';
 
 import withSnackbar from './hocs/withSnackbar';
+import withChat from './hocs/withChat';
 
 const App = ({
   auth,
@@ -86,6 +87,7 @@ const enhanced = compose(
     }, dispatch),
   ),
   withSnackbar,
+  withChat,
 );
 
 export default enhanced(App);
