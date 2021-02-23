@@ -1,13 +1,8 @@
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 
-const FacebookChat = ({
-  enable,
-}) => {
+const FacebookChat = () => {
   useEffect(() => {
-    if (!enable) {
-      return;
-    }
     /* eslint-disable */
     window.fbAsyncInit = function () {
       FB.init({
@@ -24,11 +19,7 @@ const FacebookChat = ({
       fjs.parentNode.insertBefore(js, fjs);
     }(document, 'script', 'facebook-jssdk'));
     /* eslint-enable */
-  }, [enable]);
-
-  if (!enable) {
-    return null;
-  }
+  }, []);
 
   return (
     <>

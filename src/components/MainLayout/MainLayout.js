@@ -11,6 +11,7 @@ import withAuthListener from '../../hocs/withAuthListener';
 import withAuth from '../../hocs/withAuth';
 
 import AppBarDrawer from '../AppBarDrawer/AppBarDrawer';
+import FacebookChat from '../FacebookChat/FacebookChat';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -69,6 +70,7 @@ const MainLayout = ({
           {children}
         </div>
       </main>
+      <FacebookChat />
     </div>
   );
 };
