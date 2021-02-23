@@ -24,6 +24,7 @@ import Signup from './pages/Signup/Signup';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 import ConfirmSignup from './pages/ConfirmSignup/ConfirmSignup';
 import NewPassword from './pages/NewPassword/NewPassword';
+import FacebookChat from './components/FacebookChat/FacebookChat';
 
 import withSnackbar from './hocs/withSnackbar';
 
@@ -51,27 +52,6 @@ const App = ({
     checkUser();
   }, []);
 
-  useEffect(() => {
-    if (auth.user) {
-      /* eslint-disable */
-      window.fbAsyncInit = function () {
-        FB.init({
-          xfbml: true,
-          version: 'v9.0',
-        });
-      };
-
-      (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
-        fjs.parentNode.insertBefore(js, fjs);
-      }(document, 'script', 'facebook-jssdk'));
-      /* eslint-enable */
-    }
-  }, [auth.user]);
-
   return (
     <Router>
       <Switch>
@@ -84,8 +64,7 @@ const App = ({
         <Route path="/home-loan-qualfying" component={HomeLoanQualifying} />
         <Route path="/" exact component={auth.user ? PropertySearch : Signin} />
       </Switch>
-      <div id="fb-root" />
-      <div className="fb-customerchat" attribution="setup_tool" page_id="100394824911272" theme_color="#ff7e29" />
+      {auth.user && <FacebookChat />}
     </Router>
   );
 };
