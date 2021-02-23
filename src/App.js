@@ -24,7 +24,6 @@ import Signup from './pages/Signup/Signup';
 import ForgotPassword from './pages/ForgotPassword/ForgotPassword';
 import ConfirmSignup from './pages/ConfirmSignup/ConfirmSignup';
 import NewPassword from './pages/NewPassword/NewPassword';
-import FacebookChat from './components/FacebookChat/FacebookChat';
 
 import withSnackbar from './hocs/withSnackbar';
 
@@ -64,7 +63,6 @@ const App = ({
         <Route path="/home-loan-qualfying" component={HomeLoanQualifying} />
         <Route path="/" exact component={auth.user ? PropertySearch : Signin} />
       </Switch>
-      <FacebookChat enable={auth.user !== null} />
     </Router>
   );
 };
