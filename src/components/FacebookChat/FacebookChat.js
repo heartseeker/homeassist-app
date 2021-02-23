@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
 
 const FacebookChat = () => {
   useEffect(() => {
@@ -27,10 +26,6 @@ const FacebookChat = () => {
       <div className="fb-customerchat" attribution="setup_tool" page_id="100394824911272" theme_color="#ff7e29" />
     </>
   );
-};
-
-FacebookChat.propTypes = {
-  enable: PropTypes.bool.isRequired,
 };
 
 export default FacebookChat;
