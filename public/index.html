@@ -29,6 +29,24 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <script>
+      /* eslint-disable */
+      window.fbAsyncInit = function () {
+          FB.init({
+              xfbml: true,
+              version: 'v9.0',
+          });
+      };
+
+      (function (d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = 'https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js';
+          fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+      /* eslint-enable */
+    </script>
     <div id="root"></div>
     <!--
       This HTML file is a template.
@@ -40,7 +58,5 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
-    <div id="fb-root"></div>
-    <div className="fb-customerchat" attribution="setup_tool" page_id="100394824911272" theme_color="#ff7e29"></div>
   </body>
 </html>
