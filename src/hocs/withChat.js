@@ -8,8 +8,8 @@ const withChat = (ChildComponent) => compose((props) => {
     /* eslint-disable */
     window.fbAsyncInit = function() {
       FB.init({
-        xfbml            : true,
-        version          : 'v10.0'
+        xfbml: true,
+        version: 'v10.0'
       });
     };
 
