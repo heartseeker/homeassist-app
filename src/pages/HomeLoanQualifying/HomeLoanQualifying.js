@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   paper: {
     display: 'flex',
     flexDirection: 'column',
-    width: '50rem',
+    minWidth: '50rem',
     alignSelf: 'center',
   },
   title: {

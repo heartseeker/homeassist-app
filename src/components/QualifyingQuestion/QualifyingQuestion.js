@@ -359,7 +359,7 @@ const QualifyingQuestion = ({
     return (
       <Card className={classes.starting}>
         <Typography variant="body2">
-          HomeAssist.ph aims to provide you all the important details that can aid you in your home-buying decision. We will help you complete your real estate transaction from reservation up to after-sales. Owning your dream home just got easier. Apply Now. Fast Approval. Up to 80% of Home Value. Flexible Payment Terms. 100% Online Application. Types: House, Condominium, Townhouse, Duplex. 🙂
+          Thank you for your interest in trying out our home loan qualifying feature. This may help you determine your chances of passing a bank's home loan evaluation. Please note though that we don't guarantee approval of a home loan evaluation as banks are the final approving body, not us. But you may use the feedback that we'll be providing as a guide only. Please be assured that your answers here will be treated with utmost confidentiality.
         </Typography>
         <Button onClick={() => setIsStarted(true)} className={classes.getStarted} variant="contained" color="primary">
           Get Started
