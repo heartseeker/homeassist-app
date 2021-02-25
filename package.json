@@ -15,6 +15,7 @@
     "@testing-library/user-event": "^12.1.10",
     "aws-amplify": "^3.3.17",
     "axios": "^0.21.1",
+    "classnames": "^2.2.6",
     "clsx": "^1.1.1",
     "formik": "^2.2.6",
     "lodash": "^4.17.20",

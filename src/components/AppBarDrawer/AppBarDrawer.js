@@ -7,6 +7,7 @@ import '../../configureAmplify';
 import { Auth } from 'aws-amplify';
 
 import { makeStyles } from '@material-ui/core/styles';
+import { deepOrange, deepPurple } from '@material-ui/core/colors';
 import AppBar from '@material-ui/core/AppBar';
 import Drawer from '@material-ui/core/Drawer';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -42,10 +43,8 @@ import { authLogoutAction } from '../../redux/auth/auth.action';
 
 import { palette } from '../../styles/theme';
 import Logo from '../../assets/images/logo.png';
-import DummyAvatar from '../../assets/images/dummies/avatar.jpg';
 
 const drawerWidth = 260;
-const userAvatar = DummyAvatar;
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -140,6 +139,14 @@ const useStyles = makeStyles((theme) => ({
   avatar: {
     width: theme.spacing(5.5),
     height: theme.spacing(5.5),
+  },
+  orange: {
+    color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: deepOrange[500],
+  },
+  purple: {
+    color: theme.palette.getContrastText(deepPurple[500]),
+    backgroundColor: deepPurple[500],
   },
 }));
 
@@ -321,7 +328,7 @@ const AppBarDrawer = ({
           <List>
             <ListItem button onClick={onSignout}>
               <ListItemIcon>
-                <Avatar src={userAvatar} className={classes.avatar}>JS</Avatar>
+                <Avatar className={`${classes.orange} ${classes.avatar}`}>{auth.user.attributes.given_name.charAt(0) + auth.user.attributes.family_name.charAt(0)}</Avatar>
               </ListItemIcon>
               <ListItemText primary={`${auth.user.attributes.given_name} ${auth.user.attributes.family_name}`} />
               <ListItemIcon>

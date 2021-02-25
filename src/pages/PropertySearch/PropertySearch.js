@@ -6,6 +6,8 @@ import {
   makeStyles,
 } from '@material-ui/core';
 
+import SearchIcon from '@material-ui/icons/Search';
+
 import { bindActionCreators, compose } from 'redux';
 import { connect } from 'react-redux';
 import { Field, Form, Formik } from 'formik';
@@ -145,7 +147,7 @@ const PropertySearch = ({
             <Field className={classes.formField} name="location" type="select" as={MultipleSelectField} variant="outlined" label="Location" options={locations} value={values.location} />
             <Field className={classes.formField} name="propertyType" type="select" as={MultipleSelectField} variant="outlined" label="Property Type" options={propertyTypes} value={values.propertyType} />
             <Field className={classes.formField} name="price" type="select" as={SelectField} variant="outlined" label="Prices From" options={prices} value={values.price} />
-            <Button type="submit" variant="contained" color="primary" className={classes.search}>Search</Button>
+            <Button type="submit" variant="contained" color="primary" className={classes.search} endIcon={<SearchIcon />}>Search</Button>
           </Form>
         )}
       </Formik>
