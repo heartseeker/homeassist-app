@@ -1,5 +1,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
+const _ = require('lodash');
 const awsServerlessExpressMiddleware = require('aws-serverless-express/middleware')
 const { TermRelationship } = require('./models/TermRelationship')
 const { Term } = require('./models/Term')
@@ -114,7 +115,14 @@ app.get('/item', async (req, res) => {
 
     result = result.map(r => {
       const termRelation = relationTermTaxonomy.filter(t => t.object_id === r.ID)
-      const plain_post_content = r.post_content.replace(/<\/?[^>]+(>|$)/g, '');
+      let plain_post_content = r.post_content.replace(/<\/?[^>]+(>|$)/g, '');
+      // remove line breaks
+      plain_post_content = plain_post_content.replace(/(\r\n|\n|\r)/gm, ' ');
+      // remove html entities (e.g &nbsp;)
+      plain_post_content = _.unescape(plain_post_content);
+      plain_post_content = plain_post_content.replace(/&nbsp;/g, ' ');
+      // remove multiple spaces
+      plain_post_content = plain_post_content.replace(/\s+/g, ' ').trim();
       if (!termRelation) {
         return { ...r, plain_post_content }
       }

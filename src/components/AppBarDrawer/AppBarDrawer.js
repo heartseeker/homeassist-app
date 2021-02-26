@@ -194,9 +194,8 @@ const AppBarDrawer = ({
   auth,
   authLogout,
 }) => {
-  const isOpen = localStorage.getItem('isMenuExpanded') && localStorage.getItem('isMenuExpanded') === '1';
   const classes = useStyles();
-  const [open, setOpen] = useState(isOpen);
+  const [open, setOpen] = useState(true);
 
   const handleDrawerOpen = () => {
     localStorage.setItem('isMenuExpanded', '1');
