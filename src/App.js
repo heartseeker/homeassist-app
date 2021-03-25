@@ -27,6 +27,7 @@ import NewPassword from './pages/NewPassword/NewPassword';
 
 import withSnackbar from './hocs/withSnackbar';
 import withChat from './hocs/withChat';
+import HomeBuyersGuide from './pages/HomeBuyersGuide/HomeBuyersGuide';
 
 const App = ({
   auth,
@@ -62,6 +63,7 @@ const App = ({
         <Route path="/users/new-password" component={NewPassword} />
         <Route path="/property-search" component={PropertySearch} />
         <Route path="/home-loan-qualfying" component={HomeLoanQualifying} />
+        <Route path="/home-buyers-guide" component={HomeBuyersGuide} />
         <Route path="/" exact component={auth.user ? PropertySearch : Signin} />
       </Switch>
     </Router>

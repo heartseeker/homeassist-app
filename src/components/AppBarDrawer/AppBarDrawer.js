@@ -37,6 +37,7 @@ import {
   mdiBell,
   mdiMagnify,
   mdiLogout,
+  mdiHomeAccount,
 } from '@mdi/js';
 
 import { authLogoutAction } from '../../redux/auth/auth.action';
@@ -186,6 +187,12 @@ const menus = [
     title: 'Document Tracker',
     size: 1,
     path: '#',
+  },
+  {
+    icon: mdiHomeAccount,
+    title: 'Home Buyers Guide',
+    size: 1,
+    path: '/home-buyers-guide',
   },
 ];
 

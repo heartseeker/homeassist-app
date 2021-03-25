@@ -1,12 +1,28 @@
 {
     "paths": [
         {
-            "name": "/item",
+            "name": "/properties",
             "lambdaFunction": "mainhomeassistphclient",
             "privacy": {
                 "open": true
             },
-            "policyResourceName": "/item"
+            "policyResourceName": "/properties"
+        },
+        {
+            "name": "/property-types",
+            "lambdaFunction": "mainhomeassistphclient",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/property-types"
+        },
+        {
+            "name": "/property-locations",
+            "lambdaFunction": "mainhomeassistphclient",
+            "privacy": {
+                "open": true
+            },
+            "policyResourceName": "/property-locations"
         }
     ],
     "resourceName": "mainhomeassistfunc",
@@ -32,5 +48,5 @@
             ]
         }
     ],
-    "uuid": "3d83670f"
+    "uuid": "faf1be74"
 }

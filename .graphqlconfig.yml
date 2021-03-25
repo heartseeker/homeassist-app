@@ -1,8 +1,8 @@
 projects:
-  homeassistapp:
+  HomeAssistGraphQL:
     schemaPath: src/graphql/schema.json
     includes:
-      - ./graphql/**/*.js
+      - src/graphql/**/*.js
     excludes:
       - ./amplify/**
     extensions:
