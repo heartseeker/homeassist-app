@@ -14,9 +14,13 @@ import { Field, Form, Formik } from 'formik';
 
 import TextField from '../../components/Forms/TextField';
 import MultipleSelectField from '../../components/Forms/MultipleSelectField';
-import SelectField from '../../components/Forms/SelectField';
 
-import { fetchPropertiesAction } from '../../redux/properties/properties.action';
+import {
+  fetchPropertiesAction,
+  fetchPropertiesFetchLocationsAction,
+  fetchPropertiesFetchTypesAction,
+  searchPropertiesAction,
+} from '../../redux/properties/properties.action';
 
 import MainLayout from '../../components/MainLayout/MainLayout';
 import ListingItem from '../../components/ListingItem/ListingItem';
@@ -51,48 +55,18 @@ const useStyles = makeStyles({
   },
 });
 
-const locations = [
-  { value: 'Manila', label: 'Manila City' },
-  { value: 'Makati', label: 'Makati City' },
-  { value: 'QC', label: 'Quezon City' },
-  { value: 'Mandaluyung', label: 'Mandaluyong City' },
-  { value: 'Pasay', label: 'Pasay City' },
-  { value: 'Pasig', label: 'Pasig City' },
-  { value: 'Paranaque', label: 'Paranaque City' },
-  { value: 'Malabon', label: 'Malabon City' },
-  { value: 'Caloocan', label: 'Caloocan City' },
-  { value: 'Taguig', label: 'Taguig City' },
-  { value: 'San juan', label: 'San juan City' },
-  { value: 'Bulacan', label: 'Bulacan' },
-  { value: 'Tagaytay', label: 'Tagaytay' },
-  { value: 'Batangas', label: 'Batangas' },
-  { value: 'Cavite', label: 'Cavite' },
-];
-
-const propertyTypes = [
-  { value: 'Commercial', label: 'Commercial Space' },
-  { value: 'Condominium', label: 'Condominium' },
-  { value: 'House', label: 'House & Lot' },
-  { value: 'Lot', label: 'Lot Only' },
-  { value: 'Office', label: 'Office Space' },
-  { value: 'Townhouse', label: 'Townhouse' },
-];
-
-const prices = [
-  { value: 500000, label: '₱500,000' },
-  { value: 1000000, label: '₱1,000,000' },
-  { value: 2000000, label: '₱2,000,000' },
-  { value: 3000000, label: '₱3,000,000' },
-  { value: 4000000, label: '₱4,000,000' },
-];
-
 const PropertySearch = ({
   fetchProperties,
+  fetchPropertiesFetchTypes,
+  fetchPropertiesFetchLocations,
   // eslint-disable-next-line no-unused-vars
   properties,
+  searchProperties,
 }) => {
   const classes = useStyles();
-  const [pageOptions, setPageOptions] = useState({ page: 1, pageSize: 9 });
+  const [pageOptions, setPageOptions] = useState({ page: 1, pageSize: 9, q: '' });
+  const [locations, setLocations] = useState([]);
+  const [propertyTypes, setPropertyTypes] = useState([]);
   const initialValues = {
     term: '',
     location: [],
@@ -101,22 +75,53 @@ const PropertySearch = ({
   };
 
   const onSubmit = (values) => {
-    console.log('values', values);
+    let query = { page: 1, pageSize: 9, q: values.term };
+    if (values.propertyType) {
+      const propertyType = values.propertyType.join(',');
+      query = { ...query, property_type: propertyType };
+    }
+    if (values.location) {
+      const propertyLocation = values.location.join(',');
+      query = { ...query, property_location: propertyLocation };
+    }
+    // searchProperties(query);
+    setPageOptions(query);
   };
 
   const onScrollBottom = () => {
     if (properties.properties.pageCount <= pageOptions.page) {
-      setPageOptions((value) => ({ page: value.page + 1, pageSize: value.pageSize }));
+      setPageOptions((value) => ({ ...value, page: value.page + 1, pageSize: value.pageSize }));
     }
   };
 
-  const getProperties = async () => {
-    fetchProperties(pageOptions);
-  };
+  useEffect(() => {
+    fetchPropertiesFetchTypes();
+    fetchPropertiesFetchLocations();
+  }, []);
 
   useEffect(() => {
-    getProperties();
+    // if coming from search button trigger, reset the propertis store
+    if (pageOptions.page === 1) {
+      searchProperties(pageOptions);
+    } else {
+      // else append to existing
+      fetchProperties(pageOptions);
+    }
   }, [pageOptions]);
+
+  useEffect(() => {
+    if (locations.length === 0 && properties.locations.result && properties.locations.result.length > 0) {
+      const locs = properties.locations.result.map((loc) => ({ value: loc.slug, label: loc.name }));
+      setLocations(locs);
+    }
+  }, [properties.locations]);
+
+  useEffect(() => {
+    if (propertyTypes.length === 0 && properties.types.result && properties.types.result.length > 0) {
+      const types = properties.types.result.map((loc) => ({ value: loc.slug, label: loc.name }));
+      setPropertyTypes(types);
+    }
+  }, [properties.types]);
 
   const renderItems = () => (
     <div className={classes.listing}>
@@ -146,20 +151,22 @@ const PropertySearch = ({
             <Field className={classes.formField} name="term" type="input" as={TextField} variant="outlined" label="Search" value={values.term} />
             <Field className={classes.formField} name="location" type="select" as={MultipleSelectField} variant="outlined" label="Location" options={locations} value={values.location} />
             <Field className={classes.formField} name="propertyType" type="select" as={MultipleSelectField} variant="outlined" label="Property Type" options={propertyTypes} value={values.propertyType} />
-            <Field className={classes.formField} name="price" type="select" as={SelectField} variant="outlined" label="Prices From" options={prices} value={values.price} />
             <Button type="submit" variant="contained" color="primary" className={classes.search} endIcon={<SearchIcon />}>Search</Button>
           </Form>
         )}
       </Formik>
-      { properties.properties && properties.properties.result.length > 0 ? renderItems() : renderPreloader() }
-      { properties.loading && <CircularProgress className={classes.loader} />}
+      { !properties.loading || properties.properties.result.length > 0 ? renderItems() : renderPreloader() }
+      { properties.loading && properties.properties.result.length > 0 && <CircularProgress className={classes.loader} />}
     </MainLayout>
   );
 };
 
 PropertySearch.propTypes = {
   properties: PropTypes.object.isRequired,
+  searchProperties: PropTypes.func.isRequired,
   fetchProperties: PropTypes.func.isRequired,
+  fetchPropertiesFetchTypes: PropTypes.func.isRequired,
+  fetchPropertiesFetchLocations: PropTypes.func.isRequired,
 };
 
 const enhanced = compose(
@@ -169,6 +176,9 @@ const enhanced = compose(
     }),
     (dispatch) => bindActionCreators({
       fetchProperties: fetchPropertiesAction,
+      searchProperties: searchPropertiesAction,
+      fetchPropertiesFetchTypes: fetchPropertiesFetchTypesAction,
+      fetchPropertiesFetchLocations: fetchPropertiesFetchLocationsAction,
     }, dispatch),
   ),
 );

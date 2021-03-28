@@ -18,7 +18,7 @@
       "function": {
         "mainhomeassistphclient": {
           "deploymentBucketName": "amplify-homeassistphapp-dev-222527-deployment",
-          "s3Key": "amplify-builds/mainhomeassistphclient-59666d70316242346e66-build.zip"
+          "s3Key": "amplify-builds/mainhomeassistphclient-6e41504d415336585943-build.zip"
         }
       }
     }

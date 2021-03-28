@@ -225,12 +225,12 @@ app.get('/properties', async (req, res) => {
         qb.where('post_status', '=', 'publish')
         qb.where('post_type', '=', 'cf47rs_property')
         // qb.where('post_title', 'LIKE', `%${q}%`)
-        qb.where(() => {
-          this.orWhere('post_title', 'LIKE', `%${q}%`)
-          this.orWhere('post_content', 'LIKE', `%${q}%`)
-        })
+        // qb.where(() => {
+        //   this.orWhere('post_title', 'LIKE', `%${q}%`)
+        //   this.orWhere('post_content', 'LIKE', `%${q}%`)
+        // })
         // qb.debug(true);
-        // qb.orWhere('post_content', 'LIKE', `%${q}%`)
+        qb.where('post_content', 'LIKE', `%${q}%`)
         
       })
       .orderBy('post_modified', 'DESC')

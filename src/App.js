@@ -31,6 +31,7 @@ import HomeBuyersGuide from './pages/HomeBuyersGuide/HomeBuyersGuide';
 
 const App = ({
   auth,
+  // eslint-disable-next-line no-unused-vars
   authCalled,
   authLoading,
   authSetUser,
@@ -42,9 +43,8 @@ const App = ({
       authUser = await Auth.currentAuthenticatedUser();
       authLoading(false);
       authSetUser(authUser);
-      authCalled();
+      // authCalled();
     } catch (err) {
-      // authCalled(true);
       authLoading(false);
     }
   };

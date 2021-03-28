@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const createAPI = () => {
   const options = {
-    baseURL: 'https://nmkajrttqi.execute-api.ap-southeast-1.amazonaws.com/dev',
+    baseURL: process.env.REACT_APP_API_URL,
     headers: {
       'Content-Type': 'application/json',
     },
